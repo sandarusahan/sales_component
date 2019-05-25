@@ -62,7 +62,7 @@ public class SalesOrder {
     public enum OrderStatus {
         ACTIVE,
         CANCELLED,
-        DELIVERED;
+        CLOSED;
     }
 
     public enum ShipmentType {

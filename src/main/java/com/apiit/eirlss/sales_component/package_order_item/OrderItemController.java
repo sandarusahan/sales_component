@@ -1,6 +1,7 @@
 package com.apiit.eirlss.sales_component.package_order_item;
 
-import com.apiit.eirlss.sales_component.package_customer.Customer;
+
+import com.apiit.eirlss.sales_component.package_order.SalesOrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,9 +12,11 @@ import java.util.Optional;
 public class OrderItemController {
     @Autowired
     OrderItemRepository orderItemRepository;
+    @Autowired
+    SalesOrderRepository salesOrderRepository;
 
     @GetMapping(path = "all")
-    public Iterable<OrderItem> GetOrderItems () {
+    public Iterable<OrderItem> getOrderItems () {
         return orderItemRepository.findAll();
     }
 
@@ -23,9 +26,25 @@ public class OrderItemController {
     }
 
     @PostMapping(path = "new")
-    public OrderItem AddNewOrderItem (@RequestBody OrderItem orderItem) {
+    public OrderItem AddNewOrderItem (@RequestBody OrderItem newOrderItem) {
+        OrderItem orderItem = null;
+        for(OrderItem item : getOrderItems()){
+            if (item.getProductId().equals(newOrderItem.getProductId()) && item.getSalesOrder().getSalesOrderId().equals(newOrderItem.getSalesOrder().getSalesOrderId())) {
+                orderItem = item;
+            }
+
+        }
+
+        if(orderItem==null){
+            orderItem = newOrderItem;
+        }else {
+            orderItem.setQty(newOrderItem.getQty());
+        }
         return orderItemRepository.save(orderItem);
+
     }
+
+
 
     @PutMapping(path = "/update")
     public OrderItem UpdateOrderItem(@RequestBody OrderItem orderItem){
@@ -38,7 +57,7 @@ public class OrderItemController {
 
 
     @DeleteMapping("/{itemId}")
-    public Boolean DeleteCustomer(@PathVariable String itemId){
+    public Boolean DeleteOrderItem(@PathVariable String itemId){
 
         Optional<OrderItem> c = orderItemRepository.findById(itemId);
         if(c.isPresent())
@@ -48,4 +67,6 @@ public class OrderItemController {
 
         return c.isPresent();
     }
+
+
 }

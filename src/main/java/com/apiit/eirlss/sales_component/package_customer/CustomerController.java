@@ -22,6 +22,11 @@ public class CustomerController {
         return customerRepository.findById(custId).get();
     }
 
+    @GetMapping(path = "email/{email}")
+    public Customer getCustomerByEmail(@PathVariable String email){
+        return customerRepository.findCustomerByCustomerEmail(email);
+    }
+
     @PostMapping(path = "new")
     public Customer AddNewCustomer (@RequestBody Customer customer) {
         return customerRepository.save(customer);

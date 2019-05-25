@@ -4,7 +4,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Set;
+//import java.util.Set;
 
 @Entity
 public class Courier {
@@ -68,6 +68,7 @@ public class Courier {
     public void setVehicleId(String vehicleId) {
         this.vehicleId = vehicleId;
     }
+
 
 //    public Set<SalesOrder> getSalesOrders() {
 //        return salesOrders;

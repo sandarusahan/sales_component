@@ -11,4 +11,8 @@ public interface SalesOrderRepository extends CrudRepository<SalesOrder, String>
 
     Iterable<SalesOrder> findAllByCustomer(Customer customer);
 
+    Iterable<SalesOrder> findAllByOrderType(SalesOrder.OrderType orderType);
+
+    Iterable<SalesOrder> findAllByOrderTypeAndCustomer(SalesOrder.OrderType orderType, Customer customer);
+
 }
