@@ -16,67 +16,68 @@ import java.util.Set;
 
 @Entity
 public class SalesOrder {
-    @Id
-    @NotNull
-    @GeneratedValue(generator="system-uuid")
-    @GenericGenerator(name="system-uuid", strategy = "uuid")
-    @Column(name = "sales_order_id")
-    private String salesOrderId;
 
-    @CreationTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "sales_order_date")
+    //    @GeneratedValue(generator="system-uuid")
+//    @GenericGenerator(name="system-uuid", strategy = "uuid")
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int salesOrderId;
+
     private Date order_date;
-    @Column(name = "sales_order_type")
     private OrderType orderType = OrderType.INQUIRY;
-    @Column(name = "sales_order_status")
     private OrderStatus order_status = OrderStatus.ACTIVE;
 
 
     @ManyToOne
-    @JoinColumn(name = "customer_id", nullable = false)
+    @JoinColumn
     @JsonIgnoreProperties("salesOrders")
     private Customer customer;
 
-    @Column(name = "sales_order_items")
-    @OneToMany(mappedBy = "salesOrder")
+    @OneToMany(mappedBy = "salesOrder", cascade = CascadeType.ALL)
     @JsonIgnoreProperties("salesOrder")
     private Set<OrderItem> orderItems;
-    @Column(name = "sales_order_due_date")
+
     private Date dueDate;
-    @Column(name = "sales_order_shipment_type")
     private ShipmentType shipmentType = ShipmentType.POST;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "courier_id")
+    @ManyToOne
+    @JoinColumn
     @JsonIgnoreProperties("salesOrders")
     private Courier courier;
 
     public enum OrderType {
         INQUIRY,
         ORDER,
-        RETURN;
+        RETURN
     }
 
     public enum OrderStatus {
         ACTIVE,
         CANCELLED,
-        CLOSED;
+        CLOSED
     }
 
     public enum ShipmentType {
         POST,
-        COURIER;
+        COURIER
     }
 
-    public String  getSalesOrderId() {
+    public int getSalesOrderId() {
         return salesOrderId;
     }
 
-    public void setSalesOrderId(String salesOrderId) {
+    public void setSalesOrderId(int salesOrderId) {
         this.salesOrderId = salesOrderId;
     }
+
+    //    public String getSalesOrderId() {
+//        return salesOrderId;
+//    }
+//
+//    public void setSalesOrderId(String salesOrderId) {
+//        this.salesOrderId = salesOrderId;
+//    }
 
     public Date getOrder_date() {
         return order_date;
@@ -116,6 +117,7 @@ public class SalesOrder {
 
     public void setOrderItems(Set<OrderItem> orderItems) {
         this.orderItems = orderItems;
+        this.orderItems.forEach(orderItem -> orderItem.setSalesOrder(this));
     }
 
     public Date getDueDate() {

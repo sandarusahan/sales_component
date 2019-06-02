@@ -69,7 +69,6 @@ public class Courier {
         this.vehicleId = vehicleId;
     }
 
-
 //    public Set<SalesOrder> getSalesOrders() {
 //        return salesOrders;
 //    }

@@ -12,7 +12,7 @@ import java.util.Optional;
 import java.util.Set;
 
 @RestController
-@RequestMapping(path = "order/")
+@RequestMapping("/sales-orders/")
 public class SalesOrderController {
 
     @Autowired
@@ -30,7 +30,7 @@ public class SalesOrderController {
     }
 
     @GetMapping(path = "{orderId}")
-    public SalesOrder getSalesOrder(@PathVariable String orderId){
+    public SalesOrder getSalesOrder(@PathVariable int orderId){
         return salesOrderRepository.findById(orderId).get();
     }
 
@@ -62,10 +62,11 @@ public class SalesOrderController {
 
     @PostMapping(path = "new")
     public SalesOrder AddNewOrder (@RequestBody SalesOrder salesOrder) {
+
         return salesOrderRepository.save(salesOrder);
     }
 
-    @PutMapping(path = "/update")
+    @PutMapping(path = "update")
     public SalesOrder UpdateOrder(@RequestBody SalesOrder salesOrder){
 
         SalesOrder order = salesOrderRepository.save(salesOrder);
@@ -76,7 +77,7 @@ public class SalesOrderController {
 
 
     @DeleteMapping("/{orderId}")
-    public Boolean DeleteCustomer(@PathVariable String orderId){
+    public Boolean DeleteCustomer(@PathVariable int orderId){
 
         Optional<SalesOrder> c = salesOrderRepository.findById(orderId);
         if(c.isPresent())

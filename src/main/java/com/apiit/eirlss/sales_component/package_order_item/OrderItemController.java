@@ -21,32 +21,32 @@ public class OrderItemController {
     }
 
     @GetMapping(path = "{itemId}")
-    public OrderItem getOrderItem(@PathVariable String itemId){
+    public OrderItem getOrderItem(@PathVariable int itemId){
         return orderItemRepository.findById(itemId).get();
     }
 
-    @PostMapping(path = "new")
-    public OrderItem AddNewOrderItem (@RequestBody OrderItem newOrderItem) {
-        OrderItem orderItem = null;
-        for(OrderItem item : getOrderItems()){
-            if (item.getProductId().equals(newOrderItem.getProductId()) && item.getSalesOrder().getSalesOrderId().equals(newOrderItem.getSalesOrder().getSalesOrderId())) {
-                orderItem = item;
-            }
+//    @PostMapping(path = "new")
+//    public OrderItem AddNewOrderItem (@RequestBody OrderItem newOrderItem) {
+//        OrderItem orderItem = null;
+//        for(OrderItem item : getOrderItems()){
+//            if (item.getProductId().equals(newOrderItem.getProductId()) && item.getSalesOrder().getSalesOrderId().equals(newOrderItem.getSalesOrder().getSalesOrderId())) {
+//                orderItem = item;
+//            }
+//
+//        }
+//
+//        if(orderItem==null){
+//            orderItem = newOrderItem;
+//        }else {
+//            orderItem.setQty(newOrderItem.getQty());
+//        }
+//        return orderItemRepository.save(orderItem);
+//
+//    }
+//
 
-        }
 
-        if(orderItem==null){
-            orderItem = newOrderItem;
-        }else {
-            orderItem.setQty(newOrderItem.getQty());
-        }
-        return orderItemRepository.save(orderItem);
-
-    }
-
-
-
-    @PutMapping(path = "/update")
+    @PutMapping(path = "update")
     public OrderItem UpdateOrderItem(@RequestBody OrderItem orderItem){
 
         OrderItem item = orderItemRepository.save(orderItem);
@@ -56,8 +56,8 @@ public class OrderItemController {
     }
 
 
-    @DeleteMapping("/{itemId}")
-    public Boolean DeleteOrderItem(@PathVariable String itemId){
+    @DeleteMapping("{itemId}")
+    public Boolean DeleteOrderItem(@PathVariable int itemId){
 
         Optional<OrderItem> c = orderItemRepository.findById(itemId);
         if(c.isPresent())

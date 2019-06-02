@@ -10,45 +10,46 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 public class OrderItem {
+
+
     @Id
-    @NotNull
-    @GeneratedValue(generator="system-uuid")
-    @GenericGenerator(name="system-uuid", strategy = "uuid")
-    @Column(name = "order_item_id")
-    private String orderItemId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int orderItemId;
 
 
     @ManyToOne
-    @JoinColumn(name = "sales_order_id",nullable = false)
+    @JoinColumn
     @JsonIgnoreProperties("orderItems")
     private SalesOrder salesOrder;
 
-    @Column(name = "order_item_product_id")
     private String productId;
-    @Column(name = "order_item_product_name")
     private String productName;
-    @Column(name = "order_item_product_price")
-    private String productPrice;
-    @Column(name = "order_item_is_available")
-    private boolean isAvailable = false;
-    @Column(name = "order_item_is_cancelled")
-    private boolean isCancelled = false;
-    @Column(name = "order_item_qty")
+    private Double productPrice;
+    private boolean isAvailable;
+    private boolean isCancelled;
     private int qty;
 
-    @Column(name = "order_item_reference")
     @Nullable
     private String reference;
 
     //status of each itm in the list
 
-    public String getOrderItemId() {
+    public int getOrderItemId() {
         return orderItemId;
     }
 
-    public void setOrderItemId(String orderItemId) {
+    public void setOrderItemId(int orderItemId) {
         this.orderItemId = orderItemId;
     }
+
+
+//    public String getOrderItemId() {
+//        return orderItemId;
+//    }
+//
+//    public void setOrderItemId(String orderItemId) {
+//        this.orderItemId = orderItemId;
+//    }
 
     public SalesOrder getSalesOrder() {
         return salesOrder;
@@ -74,11 +75,11 @@ public class OrderItem {
         this.productName = productName;
     }
 
-    public String getProductPrice() {
+    public Double getProductPrice() {
         return productPrice;
     }
 
-    public void setProductPrice(String productPrice) {
+    public void setProductPrice(Double productPrice) {
         this.productPrice = productPrice;
     }
 
