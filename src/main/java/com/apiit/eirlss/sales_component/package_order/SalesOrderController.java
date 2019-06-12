@@ -60,6 +60,12 @@ public class SalesOrderController {
         return salesOrderRepository.findAllByOrderTypeAndCustomer(SalesOrder.OrderType.valueOf(type.toUpperCase()), customer);
     }
 
+    @GetMapping(path = "type/{type}/orderId/{orderId}")
+    public Iterable<SalesOrder> getSalesOrderByOrderTypeAndOrderId(@PathVariable String type,@PathVariable String orderId){
+
+        return salesOrderRepository.findAllByOrderTypeAndSalesOrderId(SalesOrder.OrderType.valueOf(type.toUpperCase()), orderId);
+    }
+
     @PostMapping(path = "new")
     public SalesOrder AddNewOrder (@RequestBody SalesOrder salesOrder) {
 

@@ -15,7 +15,6 @@ public class CourierController {
 
     @GetMapping(path = "all")
     public Iterable<Courier> GetCouriers() {
-        System.out.println("hit...................");
         return courierRepository.findAll();
     }
 

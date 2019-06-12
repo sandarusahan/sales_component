@@ -3,29 +3,25 @@ package com.apiit.eirlss.sales_component.package_order;
 import com.apiit.eirlss.sales_component.package_courier.Courier;
 import com.apiit.eirlss.sales_component.package_customer.Customer;
 import com.apiit.eirlss.sales_component.package_order_item.OrderItem;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.GenericGenerator;
-import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Set;
 
 @Entity
 public class SalesOrder {
 
-    //    @GeneratedValue(generator="system-uuid")
-//    @GenericGenerator(name="system-uuid", strategy = "uuid")
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int salesOrderId;
 
-    private Date order_date;
+    private Date orderDate;
     private OrderType orderType = OrderType.INQUIRY;
-    private OrderStatus order_status = OrderStatus.ACTIVE;
+    private OrderStatus orderStatus = OrderStatus.ACTIVE;
 
 
     @ManyToOne
@@ -46,10 +42,16 @@ public class SalesOrder {
     @JsonIgnoreProperties("salesOrders")
     private Courier courier;
 
+    @Column(updatable = false)
+    @CreationTimestamp
+    private Timestamp timestamp;
+
     public enum OrderType {
         INQUIRY,
         ORDER,
-        RETURN
+        RETURN_EXCHANGE,
+        RETURN_CREDIT,
+        RETURN_REPAIR
     }
 
     public enum OrderStatus {
@@ -71,20 +73,12 @@ public class SalesOrder {
         this.salesOrderId = salesOrderId;
     }
 
-    //    public String getSalesOrderId() {
-//        return salesOrderId;
-//    }
-//
-//    public void setSalesOrderId(String salesOrderId) {
-//        this.salesOrderId = salesOrderId;
-//    }
-
-    public Date getOrder_date() {
-        return order_date;
+    public Date getOrderDate() {
+        return orderDate;
     }
 
-    public void setOrder_date(Date order_date) {
-        this.order_date = order_date;
+    public void setOrderDate(Date orderDate) {
+        this.orderDate = orderDate;
     }
 
     public OrderType getOrderType() {
@@ -95,12 +89,12 @@ public class SalesOrder {
         this.orderType = orderType;
     }
 
-    public OrderStatus getOrder_status() {
-        return order_status;
+    public OrderStatus getOrderStatus() {
+        return orderStatus;
     }
 
-    public void setOrder_status(OrderStatus order_status) {
-        this.order_status = order_status;
+    public void setOrderStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus;
     }
 
     public Customer getCustomer() {
@@ -142,5 +136,13 @@ public class SalesOrder {
 
     public void setCourier(Courier courier) {
         this.courier = courier;
+    }
+
+    public Timestamp getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Timestamp timestamp) {
+        this.timestamp = timestamp;
     }
 }
