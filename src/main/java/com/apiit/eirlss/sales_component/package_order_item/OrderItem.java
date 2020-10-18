@@ -1,16 +1,19 @@
 package com.apiit.eirlss.sales_component.package_order_item;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
 import com.apiit.eirlss.sales_component.package_order.SalesOrder;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.hibernate.annotations.GenericGenerator;
-import org.springframework.lang.Nullable;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import org.springframework.lang.Nullable;
 
 @Entity
 public class OrderItem {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

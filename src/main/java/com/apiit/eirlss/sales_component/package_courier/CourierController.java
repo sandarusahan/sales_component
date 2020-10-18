@@ -1,6 +1,5 @@
 package com.apiit.eirlss.sales_component.package_courier;
 
-import com.apiit.eirlss.sales_component.package_customer.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

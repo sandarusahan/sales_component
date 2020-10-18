@@ -21,7 +21,7 @@ public class SalesOrder {
 
     private Date orderDate;
     private OrderType orderType = OrderType.INQUIRY;
-    private OrderStatus orderStatus = OrderStatus.ACTIVE;
+    private String orderStatus;
 
 
     @ManyToOne
@@ -36,8 +36,9 @@ public class SalesOrder {
     private Date dueDate;
     private ShipmentType shipmentType = ShipmentType.POST;
 
+    private PaymentStatus paymentStatus = PaymentStatus.PENDING;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn
     @JsonIgnoreProperties("salesOrders")
     private Courier courier;
@@ -54,17 +55,17 @@ public class SalesOrder {
         RETURN_REPAIR
     }
 
-    public enum OrderStatus {
-        ACTIVE,
-        CANCELLED,
-        CLOSED
-    }
 
     public enum ShipmentType {
         POST,
         COURIER
     }
 
+    public enum PaymentStatus {
+        PENDING,
+        ON_DELIVERY,
+        PAID
+    }
     public int getSalesOrderId() {
         return salesOrderId;
     }
@@ -89,11 +90,11 @@ public class SalesOrder {
         this.orderType = orderType;
     }
 
-    public OrderStatus getOrderStatus() {
+    public String getOrderStatus() {
         return orderStatus;
     }
 
-    public void setOrderStatus(OrderStatus orderStatus) {
+    public void setOrderStatus(String orderStatus) {
         this.orderStatus = orderStatus;
     }
 
@@ -145,4 +146,14 @@ public class SalesOrder {
     public void setTimestamp(Timestamp timestamp) {
         this.timestamp = timestamp;
     }
+
+    public PaymentStatus getPaymentStatus() {
+        return paymentStatus;
+    }
+
+    public void setPaymentStatus(PaymentStatus paymentStatus) {
+        this.paymentStatus = paymentStatus;
+    }
+
+    
 }

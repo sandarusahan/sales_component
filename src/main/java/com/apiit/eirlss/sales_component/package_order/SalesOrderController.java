@@ -3,13 +3,10 @@ package com.apiit.eirlss.sales_component.package_order;
 import com.apiit.eirlss.sales_component.package_courier.CourierRepository;
 import com.apiit.eirlss.sales_component.package_customer.Customer;
 import com.apiit.eirlss.sales_component.package_customer.CustomerRepository;
-import com.apiit.eirlss.sales_component.package_order_item.OrderItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashSet;
 import java.util.Optional;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/sales-orders/")
