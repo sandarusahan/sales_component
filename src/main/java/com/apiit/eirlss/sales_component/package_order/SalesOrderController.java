@@ -1,8 +1,11 @@
 package com.apiit.eirlss.sales_component.package_order;
 
+import com.apiit.eirlss.sales_component.package_courier.Courier;
 import com.apiit.eirlss.sales_component.package_courier.CourierRepository;
 import com.apiit.eirlss.sales_component.package_customer.Customer;
 import com.apiit.eirlss.sales_component.package_customer.CustomerRepository;
+import com.apiit.eirlss.sales_component.package_order.SalesOrder.ShipmentType;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -65,7 +68,16 @@ public class SalesOrderController {
 
     @PostMapping(path = "new")
     public SalesOrder AddNewOrder (@RequestBody SalesOrder salesOrder) {
-
+        
+        if(salesOrder.getShipmentType().equals(ShipmentType.POST)){
+            Courier courier = new Courier();
+            courier.setCourierId("post");
+            courier.setTelephone("post");
+            courier.setVehicleId("post");
+            courier.setVehicleType("post");
+            courier.setCompany("post");
+            salesOrder.setCourier(courier);
+        }
         return salesOrderRepository.save(salesOrder);
     }
 
