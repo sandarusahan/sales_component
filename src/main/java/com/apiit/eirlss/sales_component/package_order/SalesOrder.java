@@ -38,7 +38,7 @@ public class SalesOrder {
 
     private PaymentStatus paymentStatus = PaymentStatus.PENDING;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn
     @JsonIgnoreProperties("salesOrders")
     private Courier courier;
