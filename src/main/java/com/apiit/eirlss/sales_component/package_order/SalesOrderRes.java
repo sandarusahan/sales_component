@@ -2,73 +2,31 @@ package com.apiit.eirlss.sales_component.package_order;
 
 import com.apiit.eirlss.sales_component.package_courier.Courier;
 import com.apiit.eirlss.sales_component.package_customer.Customer;
+import com.apiit.eirlss.sales_component.package_order.SalesOrder.OrderType;
+import com.apiit.eirlss.sales_component.package_order.SalesOrder.PaymentStatus;
+import com.apiit.eirlss.sales_component.package_order.SalesOrder.ShipmentType;
 import com.apiit.eirlss.sales_component.package_order_item.OrderItem;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.hibernate.annotations.CreationTimestamp;
 
-import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Set;
 
-@Entity
-public class SalesOrder {
+public class SalesOrderRes {
 
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int salesOrderId;
 
     private Date orderDate;
     private OrderType orderType = OrderType.INQUIRY;
     private String orderStatus;
-
-
-    @ManyToOne
-    @JoinColumn
-    @JsonIgnoreProperties("salesOrders")
     private Customer customer;
-
-    @OneToMany(mappedBy = "salesOrder", cascade = CascadeType.ALL)
-    @JsonIgnoreProperties("salesOrder")
     private Set<OrderItem> orderItems;
-
     private Date dueDate;
     private ShipmentType shipmentType = ShipmentType.POST;
-
     private PaymentStatus paymentStatus = PaymentStatus.PENDING;
-
-    // @ManyToOne(cascade = CascadeType.ALL)
-    // @JoinColumn
-    // @JsonIgnoreProperties("salesOrders")
-    // private Courier courier;
-
-    private String courierId;
-
-    @Column(updatable = false)
-    @CreationTimestamp
+    private Courier courier;
     private Timestamp timestamp;
 
-    public enum OrderType {
-        INQUIRY,
-        ORDER,
-        RETURN_EXCHANGE,
-        RETURN_CREDIT,
-        RETURN_REPAIR
-    }
-
-
-    public enum ShipmentType {
-        POST,
-        COURIER
-    }
-
-    public enum PaymentStatus {
-        PENDING,
-        ON_DELIVERY,
-        PAID
-    }
-    public int getSalesOrderId() {
+       public int getSalesOrderId() {
         return salesOrderId;
     }
 
@@ -114,7 +72,6 @@ public class SalesOrder {
 
     public void setOrderItems(Set<OrderItem> orderItems) {
         this.orderItems = orderItems;
-        this.orderItems.forEach(orderItem -> orderItem.setSalesOrder(this));
     }
 
     public Date getDueDate() {
@@ -133,12 +90,12 @@ public class SalesOrder {
         this.shipmentType = shipmentType;
     }
 
-    public String getCourier() {
-        return courierId;
+    public Courier getCourier() {
+        return courier;
     }
 
-    public void setCourier(String courierId) {
-        this.courierId = courierId;
+    public void setCourier(Courier courier) {
+        this.courier = courier;
     }
 
     public Timestamp getTimestamp() {

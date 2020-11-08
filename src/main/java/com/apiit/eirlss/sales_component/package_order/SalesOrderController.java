@@ -30,14 +30,31 @@ public class SalesOrderController {
     }
 
     @GetMapping(path = "{orderId}")
-    public SalesOrder getSalesOrder(@PathVariable int orderId){
-        return salesOrderRepository.findById(orderId).get();
+    public SalesOrderRes getSalesOrder(@PathVariable int orderId){
+        SalesOrder salesOrder = salesOrderRepository.findById(orderId).get();
+
+        Courier courier = new Courier();
+        courier = courierRepository.findById(salesOrder.getCourier()).get();
+        SalesOrderRes orderRes = new SalesOrderRes();
+        orderRes.setCourier(courier);
+        orderRes.setCustomer(salesOrder.getCustomer());
+        orderRes.setDueDate(salesOrder.getDueDate());
+        orderRes.setOrderDate(salesOrder.getOrderDate());
+        orderRes.setOrderItems(salesOrder.getOrderItems());
+        orderRes.setOrderStatus(salesOrder.getOrderStatus());
+        orderRes.setOrderType(salesOrder.getOrderType());
+        orderRes.setPaymentStatus(salesOrder.getPaymentStatus());
+        orderRes.setSalesOrderId(salesOrder.getSalesOrderId());
+        orderRes.setShipmentType(salesOrder.getShipmentType());
+        orderRes.setTimestamp(salesOrder.getTimestamp());
+
+        return orderRes;
     }
 
     @GetMapping(path = "courier/{courierId}")
     public Iterable<SalesOrder> getSalesOrderByCourierId(@PathVariable String courierId){
 
-        return salesOrderRepository.findAllByCourier(courierRepository.findById(courierId).get());
+        return salesOrderRepository.findAllByCourierId(courierId);
     }
 
     @GetMapping(path = "customer/{custId}")
@@ -67,26 +84,47 @@ public class SalesOrderController {
     }
 
     @PostMapping(path = "new")
-    public SalesOrder AddNewOrder (@RequestBody SalesOrder salesOrder) {
+    public SalesOrder AddNewOrder (@RequestBody SalesOrderRes salesOrder) {
         
+        SalesOrder order = new SalesOrder();
         if(salesOrder.getShipmentType().equals(ShipmentType.POST)){
-            Courier courier = new Courier();
-            courier.setCourierId("post");
-            courier.setTelephone("post");
-            courier.setVehicleId("post");
-            courier.setVehicleType("post");
-            courier.setCompany("post");
-            salesOrder.setCourier(courier);
+            order.setCourier("");
+        }else {
+            order.setCourier(salesOrder.getCourier().getCourierId());
         }
-        return salesOrderRepository.save(salesOrder);
+        order.setCustomer(salesOrder.getCustomer());
+        order.setDueDate(salesOrder.getDueDate());
+        order.setOrderDate(salesOrder.getOrderDate());
+        order.setOrderItems(salesOrder.getOrderItems());
+        order.setOrderStatus(salesOrder.getOrderStatus());
+        order.setOrderType(salesOrder.getOrderType());
+        order.setPaymentStatus(salesOrder.getPaymentStatus());
+        order.setSalesOrderId(salesOrder.getSalesOrderId());
+        order.setShipmentType(salesOrder.getShipmentType());
+        order.setTimestamp(salesOrder.getTimestamp());
+        return salesOrderRepository.save(order);
     }
 
     @PutMapping(path = "update")
-    public SalesOrder UpdateOrder(@RequestBody SalesOrder salesOrder){
+    public SalesOrder UpdateOrder(@RequestBody SalesOrderRes salesOrder){
+        SalesOrder order = new SalesOrder();
+        if(salesOrder.getShipmentType().equals(ShipmentType.POST)){
+            order.setCourier("");
+        }else {
+            order.setCourier(salesOrder.getCourier().getCourierId());
+        }
+        order.setCustomer(salesOrder.getCustomer());
+        order.setDueDate(salesOrder.getDueDate());
+        order.setOrderDate(salesOrder.getOrderDate());
+        order.setOrderItems(salesOrder.getOrderItems());
+        order.setOrderStatus(salesOrder.getOrderStatus());
+        order.setOrderType(salesOrder.getOrderType());
+        order.setPaymentStatus(salesOrder.getPaymentStatus());
+        order.setSalesOrderId(salesOrder.getSalesOrderId());
+        order.setShipmentType(salesOrder.getShipmentType());
+        order.setTimestamp(salesOrder.getTimestamp());
 
-        SalesOrder order = salesOrderRepository.save(salesOrder);
-        System.out.println(order.getSalesOrderId() + " is updated");
-
+        order = salesOrderRepository.save(order);
         return order;
     }
 

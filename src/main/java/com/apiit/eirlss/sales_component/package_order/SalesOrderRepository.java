@@ -1,6 +1,5 @@
 package com.apiit.eirlss.sales_component.package_order;
 
-import com.apiit.eirlss.sales_component.package_courier.Courier;
 import com.apiit.eirlss.sales_component.package_customer.Customer;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -8,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SalesOrderRepository extends JpaRepository<SalesOrder, Integer> {
-    Iterable<SalesOrder> findAllByCourier(Courier courier);
+    Iterable<SalesOrder> findAllByCourierId(String courierId);
 
     Iterable<SalesOrder> findAllByCustomer(Customer customer);
 
