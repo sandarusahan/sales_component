@@ -16,12 +16,11 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-@Configuration
 @EnableWebSecurity
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter
 {
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private BCryptPasswordEncoder passwordEncoder;;
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -35,12 +34,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter
             "/swagger-ui.html",
             "/webjars/**"
     };
-
-    // public WebSecurityConfiguration(UserDetailsService userDetailsService, BCryptPasswordEncoder bCryptPasswordEncoder)
-    // {
-    //     this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-    //     this.userDetailsService = userDetailsService;
-    // }
 
 
     @Override
@@ -59,12 +52,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter
     public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception
     {
         authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
-    }
-
-    @Bean
-    BCryptPasswordEncoder passwordEncoder() 
-    {
-        return new BCryptPasswordEncoder();
     }
 
     @Bean
