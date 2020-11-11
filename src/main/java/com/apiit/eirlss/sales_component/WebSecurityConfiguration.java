@@ -21,7 +21,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter
 {
     @Autowired
-    private PasswordEncoder bCryptPasswordEncoder;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -58,11 +58,11 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter
     @Override
     public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception
     {
-        authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
+        authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
     }
 
     @Bean
-    BCryptPasswordEncoder passwordEncoder() 
+    PasswordEncoder passwordEncoder() 
     {
         return new BCryptPasswordEncoder();
     }
