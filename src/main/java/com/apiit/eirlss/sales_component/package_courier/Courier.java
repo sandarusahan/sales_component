@@ -1,15 +1,17 @@
 package com.apiit.eirlss.sales_component.package_courier;
 
-import org.hibernate.annotations.GenericGenerator;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-//import java.util.Set;
+import org.hibernate.annotations.GenericGenerator;
+import org.springframework.lang.NonNull;
 
 @Entity
 public class Courier {
     @Id
-    @NotNull
+    @NonNull
     @GeneratedValue(generator="system-uuid")
     @GenericGenerator(name="system-uuid", strategy = "uuid")
     @Column(name = "courier_id")

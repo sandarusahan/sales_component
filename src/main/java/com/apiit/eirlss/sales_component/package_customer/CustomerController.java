@@ -50,7 +50,7 @@ public class CustomerController {
     @DeleteMapping("/{custid}")
     public Boolean DeleteCustomer(@PathVariable String custid){
 
-        Optional c = customerRepository.findById(custid);
+        Optional<Customer> c = customerRepository.findById(custid);
         if(c.isPresent())
             customerRepository.deleteById(custid);
 

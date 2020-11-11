@@ -1,6 +1,5 @@
 package com.apiit.eirlss.sales_component.package_order;
 
-import com.apiit.eirlss.sales_component.package_courier.Courier;
 import com.apiit.eirlss.sales_component.package_customer.Customer;
 import com.apiit.eirlss.sales_component.package_order_item.OrderItem;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

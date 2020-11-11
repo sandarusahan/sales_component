@@ -1,18 +1,23 @@
 package com.apiit.eirlss.sales_component.package_customer;
 
+import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
 import com.apiit.eirlss.sales_component.package_order.SalesOrder;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
-import java.util.Set;
+import org.hibernate.annotations.GenericGenerator;
+import org.springframework.lang.NonNull;
 
 @Entity
 public class Customer {
     @Id
-    @NotNull
+    @NonNull
     @GeneratedValue(generator="system-uuid")
     @GenericGenerator(name="system-uuid", strategy = "uuid")
     @Column(name = "customer_id")
@@ -22,7 +27,6 @@ public class Customer {
     String customerName;
 
     @Column(unique = true, name = "customer_email")
-    @Email
     public String customerEmail;
 
     @Column(name = "customer_main_location")
@@ -51,7 +55,7 @@ public class Customer {
     public Customer() {
     }
 
-    public Customer(String customerName, @Email String customerEmail, String customerMainLocation, String customerDeliveryLocation, String customerCollectionLocation, String customerTelephone, String customerType, CustomerPaymentStatus customerPaymentFlag) {
+    public Customer(String customerName, String customerEmail, String customerMainLocation, String customerDeliveryLocation, String customerCollectionLocation, String customerTelephone, String customerType, CustomerPaymentStatus customerPaymentFlag) {
         this.customerName = customerName;
         this.customerEmail = customerEmail;
         this.customerMainLocation = customerMainLocation;

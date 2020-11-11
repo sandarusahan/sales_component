@@ -1,13 +1,19 @@
 package com.apiit.eirlss.sales_component.package_courier;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.Collection;
 import java.util.Optional;
 
 import com.apiit.eirlss.sales_component.package_order.SalesOrder;
 import com.apiit.eirlss.sales_component.package_order.SalesOrderRepository;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(path = "courier/")
@@ -52,7 +58,8 @@ public class CourierController {
             int count = 0;
             Iterable<SalesOrder> sales = salesRepo.findAllByCourierId(c.get().getCourierId());
             for(SalesOrder sale: sales){
-                count++;
+                if(sale != null)
+                    count++;
             }
 
             if(count >= 1){

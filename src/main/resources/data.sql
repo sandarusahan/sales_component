@@ -1,1 +1,2 @@
-insert into courier (courier_id, courier_company, courier_telephone, courier_vehicle_type, courier_vehicle_id) select 'post', 'post', 'post', 'post', 'post' where not exists (select * from courier where courier_id = 'post');
+--insert into courier (courier_id, courier_company, courier_telephone, courier_vehicle_type, courier_vehicle_id) select 'post', 'post', 'post', 'post', 'post' where not exists (select * from courier where courier_id = 'post');
+insert into user (username, password, role) select 'admin', 'password', 0 where not exists (select 1 from user where username = 'admin');
