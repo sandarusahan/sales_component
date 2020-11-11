@@ -55,6 +55,12 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter
     }
 
     @Bean
+    BCryptPasswordEncoder passwordEncoder() 
+    {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
     CorsConfigurationSource corsConfigurationSource()
     {
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
