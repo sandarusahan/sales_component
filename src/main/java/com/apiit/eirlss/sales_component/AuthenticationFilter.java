@@ -52,7 +52,6 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter
         response.addHeader("Access-Control-Expose-Headers","Authorization");
         response.addHeader("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,PATCH,OPTIONS");
         response.addHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-        response.addHeader("Access-Control-Allow-Origin", "https://saho-gifts-sales.netlify.app");
         response.addHeader("Authorization","Bearer " + token);
     }
 }
