@@ -32,10 +32,13 @@ public class SalesOrderController {
     @GetMapping(path = "{orderId}")
     public SalesOrderRes getSalesOrder(@PathVariable int orderId){
         SalesOrder salesOrder = salesOrderRepository.findById(orderId).get();
-
-        Courier courier = new Courier();
-        courier = courierRepository.findById(salesOrder.getCourier()).get();
         SalesOrderRes orderRes = new SalesOrderRes();
+        Courier courier = new Courier();
+        
+        if(salesOrder.getShipmentType() == ShipmentType.COURIER && salesOrder.getCourier() != null){
+            courier = courierRepository.findById(salesOrder.getCourier()).get();
+        }
+        
         orderRes.setCourier(courier);
         orderRes.setCustomer(salesOrder.getCustomer());
         orderRes.setDueDate(salesOrder.getDueDate());
