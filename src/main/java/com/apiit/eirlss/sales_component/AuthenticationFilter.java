@@ -49,9 +49,9 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter
                 .setExpiration(new Date(System.currentTimeMillis() + 864_000_000))
                 .signWith(SignatureAlgorithm.HS512, "SecretKeyToGenJWTs".getBytes())
                 .compact();
-        response.addHeader("Access-Control-Expose-Headers","Authorization");
-        response.addHeader("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,PATCH,OPTIONS");
-        response.addHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+        // response.addHeader("Access-Control-Expose-Headers", "Authorization");
+        // response.addHeader("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,PATCH,OPTIONS");
+        // response.addHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
         response.addHeader("Authorization","Bearer " + token);
     }
 }
