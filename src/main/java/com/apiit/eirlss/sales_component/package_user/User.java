@@ -16,6 +16,9 @@ public class User
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private int id;
 
+    @Column(name = "name")
+    private String name;
+
     @Column(name = "username", unique = true)
     private String username;
 
@@ -25,6 +28,17 @@ public class User
     @Column(name = "role")
     private UserRole role = UserRole.EMPLOYEE;
 
+    @Column(name = "mobile")
+    private String mobile;
+
+    @Column(name = "address")
+    private String address;
+
+    @Column(name = "emergency_contact")
+    private String emergencyContact;
+
+    @Column(name = "user_access")
+    private String userAccess;
 
     enum UserRole {
         ADMIN,
@@ -68,5 +82,44 @@ public class User
         this.role = role;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getEmergencyContact() {
+        return emergencyContact;
+    }
+
+    public void setEmergencyContact(String emergencyContact) {
+        this.emergencyContact = emergencyContact;
+    }
+
+    public String getUserAccess() {
+        return userAccess;
+    }
+
+    public void setUserAccess(String userAccess) {
+        this.userAccess = userAccess;
+    }
     
 }

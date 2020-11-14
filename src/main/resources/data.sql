@@ -1,2 +1,2 @@
 --insert into courier (courier_id, courier_company, courier_telephone, courier_vehicle_type, courier_vehicle_id) select 'post', 'post', 'post', 'post', 'post' where not exists (select * from courier where courier_id = 'post');
-insert into user (username, password, role) select 'admin', 'password', 0 where not exists (select 1 from user where username = 'admin');
+insert into user (name, username, password, role) select 'Administrator','admin', '$2a$10$luN/YPs46P3tesswC1Q7t.PzXmX1Jy/xr2oT7CATTEJ7DbQmJkuD2', 0 where not exists (select 1 from user where username = 'admin');

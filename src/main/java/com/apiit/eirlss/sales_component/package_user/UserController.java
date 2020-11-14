@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+
 
 
 
@@ -23,6 +26,7 @@ public class UserController
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/signup")
     public void signUp(@RequestBody User user)
     {
@@ -30,6 +34,7 @@ public class UserController
         userRepository.save(user);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/changepw")
     public void changePassword(@RequestBody User user)
     {
@@ -37,7 +42,7 @@ public class UserController
         userRepository.save(user);
     }
 
-    @GetMapping(value="/checkpw")
+    @PostMapping(value="/checkpw")
     public boolean checkPassword(@RequestBody User user) {
         User existUser = userRepository.findByUsername(user.getUsername());
         if(bCryptPasswordEncoder.encode(user.getPassword()) == existUser.getPassword()){
@@ -54,5 +59,22 @@ public class UserController
         return userRepository.findAll();
     }
     
+    @GetMapping(value="/username/{username}")
+    public User getUserByUsername(@PathVariable String username) {
+        return userRepository.findByUsername(username);
+    }
     
+    @PutMapping(value="update/{username}")
+    public User updateUser(@PathVariable String username, @RequestBody User user) {
+        
+        User existsUser = userRepository.findByUsername(username);
+        existsUser.setEmergencyContact(user.getEmergencyContact());
+        existsUser.setAddress(user.getAddress());
+        existsUser.setMobile(user.getMobile());
+        existsUser.setName(user.getName());
+        existsUser.setUserAccess(user.getUserAccess());
+        
+        return userRepository.save(existsUser);
+        
+    }
 }
